@@ -1,6 +1,6 @@
 # Spring Security, SpringBoot Security, CORS, CSRF, JWT, OAUTH2, OpenID Connect, KeyCloak
 
-#Tips
+# Tips
 
 - Please note that when you add `spring-boot-starter-security` in the `pom.xml`, spring will secure your application.
 
