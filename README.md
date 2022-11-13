@@ -1,4 +1,4 @@
-# Spring Security, SpringBoot Security, CORS, CSRF, JWT, OAUTH2, OpenID Connect, KeyCloak
+# Spring Security, Spring Boot Security, CORS, CSRF, JWT, OAUTH2, OpenID Connect, KeyCloak
 
 # Tips
 
