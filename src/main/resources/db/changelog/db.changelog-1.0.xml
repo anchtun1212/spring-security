@@ -8,4 +8,65 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd">
+		
+	<changeSet id="spring-security-1" author="anchtun1212">
+		<sql>
+			create table users(
+				username varchar(50) not null primary key,
+				password varchar(50) not null,
+				enabled boolean not null
+			);
+		</sql>
+		<rollback>
+			drop table users;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-2" author="anchtun1212">
+		<sql>
+			create table authorities (
+				username varchar(50) not null,
+				authority varchar(50) not null,
+				constraint fk_authorities_users foreign key(username) references users(username)
+			);
+		</sql>
+		<rollback>
+			drop table authorities;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-3" author="anchtun1212">
+		<sql>
+			create unique index ix_auth_username on authorities (username,authority);
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-4" author="anchtun1212">
+		<sql>
+			insert into users values ('anchtun1212','12345678',true);
+			insert into authorities values ('anchtun1212','ADMIN');
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-5" author="anchtun1212">
+		<sql>
+		    drop table authorities;
+		    drop table users;
+			create table customer(
+			    id serial4 not null primary key,
+				email varchar(50) not null,
+				password varchar(100) not null,
+				role varchar(50) not null
+			);
+		</sql>
+		<rollback>
+			drop table customer;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-6" author="anchtun1212">
+		<sql>
+			insert into customer(email, password, role) values ('med.aymen.charrada@gmail.com','12345678','ADMIN');
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-7" author="anchtun1212">
+		<sql>
+			alter table customer rename column email to username;
+		</sql>
+	</changeSet>
 </databaseChangeLog>

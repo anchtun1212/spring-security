@@ -1,5 +1,19 @@
 # Spring Security, Spring Boot Security, CORS, CSRF, JWT, OAUTH2, OpenID Connect, KeyCloak
 
+# Create new Database and new user
+
+sudo -u postgres psql
+
+postgres=# create database springdb;
+
+postgres=# create user springuser with encrypted password 'springpass';
+
+postgres=# grant all privileges on database springdb to springuser;
+
+# Notes
+
+- When we want to load the user details based on our own tables, columns, custom logic, then we need to create a bean that implements `UserDetailsService` and overrides the method `loadUserByUsername`. 
+
 # Tips
 
 - Please note that when you add `spring-boot-starter-security` in the `pom.xml`, spring will secure your application.
@@ -21,3 +35,8 @@ and for spring security go to:
 `spring.security.user.name`=yourstaticusername
 
 `spring.security.user.password`=yourstaticpassword
+
+- Go to `org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl` to see the queries and schema (dll) used by spring (by default) when you use `JdbcUserDetailsManager`: Spring expect that the tables exists.
+
+
+- To create the same tables inside your application go to: `https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/appendix-schema.html` and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`.
