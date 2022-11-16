@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 //then we need to create a bean that implements UserDetailsService and overrides the method loadUserByUsername.
 @Service
 @AllArgsConstructor
-public class ProjectUserDetailsManager implements UserDetailsService {
+public class ProjectUserDetails implements UserDetailsService {
 
 	private final CustomerRepository customerRepository;
 
@@ -34,7 +34,7 @@ public class ProjectUserDetailsManager implements UserDetailsService {
 		User user = null;
 		List<Customer> customers = customerRepository.findByUsername(username);
 		if (null == customers || customers.isEmpty()) {
-			throw new UsernameNotFoundException("User not found, please verify this username: " + username);
+			throw new UsernameNotFoundException("User details not found, please verify this username: " + username);
 		} else {
 			Customer customer = customers.get(0);
 			String userName = customer.getUsername();

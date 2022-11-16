@@ -13,9 +13,14 @@ public class ProjectSecurityConfig {
 	// override and modifying the code as per our custom requirement
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests()
+		//By default, spring security framework is going to stop all POST/PUT requests 
+		//that are going to update the data inside the database or inside the back end.
+		//So all such requests will be blocked by default just to make sure to avoid the CSRF attack.
+		//so we will disable CSRF
+		http.csrf().disable()
+		.authorizeHttpRequests()
 		.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards").authenticated()
-		.antMatchers("/welcome", "/contact", "/notices").permitAll()
+		.antMatchers("/welcome", "/contact", "/notices", "/register").permitAll()
 		.and().formLogin()
 		.and().httpBasic();
 		return http.build();

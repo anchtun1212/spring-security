@@ -14,6 +14,10 @@ postgres=# grant all privileges on database springdb to springuser;
 
 - When we want to load the user details based on our own tables, columns, custom logic, then we need to create a bean that implements `UserDetailsService` and overrides the method `loadUserByUsername`. 
 
+
+- By default, spring security framework is going to stop all POST/PUT requests that are going to update the data inside the database or inside the back end.
+So all such requests will be blocked by default just to make sure to avoid the CSRF attack.
+
 # Tips
 
 - Please note that when you add `spring-boot-starter-security` in the `pom.xml`, spring will secure your application.
@@ -24,7 +28,7 @@ The default credentials are:
 
 `password`: will be generated and you can see it in the `console` when you run the application.
 
-- If you don't know/forget some spring properties go to:  `https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html` 
+- If you don't know/forget some spring properties go to: https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
 
 and for spring security go to: 
 
