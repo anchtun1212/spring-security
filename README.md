@@ -50,3 +50,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/application-prope
 https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/appendix-schema.html 
 
 and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`.
+
+# Links
+
+- Web site for hashing: https://bcrypt-generator.com/
