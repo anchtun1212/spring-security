@@ -1,21 +1,9 @@
 package com.anchtun.config;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
-import com.anchtun.model.Customer;
-import com.anchtun.repository.CustomerRepository;
-
-import lombok.AllArgsConstructor;
-
+/**
+ * because we are defining our custom Authentication Provider: ProjectUsernamePasswordAuthenticationProvider
+ * so we can remove this class
+ */
 /**
  * 
  * @author anchtun1212
@@ -23,20 +11,19 @@ import lombok.AllArgsConstructor;
  */
 //When we want to load the user details based on our own tables, columns, custom logic, 
 //then we need to create a bean that implements UserDetailsService and overrides the method loadUserByUsername.
-@Service
-@AllArgsConstructor
-public class ProjectUserDetails implements UserDetailsService {
+//@Service
+//@AllArgsConstructor
+//public class ProjectUserDetails implements UserDetailsService {
 
-	private final CustomerRepository customerRepository;
+	/*private final CustomerRepository customerRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = null;
-		List<Customer> customers = customerRepository.findByUsername(username);
-		if (null == customers || customers.isEmpty()) {
+		Customer customer = customerRepository.findOneByUsername(username);
+		if (Objects.isNull(customer)) {
 			throw new UsernameNotFoundException("User details not found, please verify this username: " + username);
 		} else {
-			Customer customer = customers.get(0);
 			String userName = customer.getUsername();
 			String password = customer.getPassword();
 			List<GrantedAuthority> authorities = new ArrayList<>();
@@ -44,6 +31,6 @@ public class ProjectUserDetails implements UserDetailsService {
 			user = new User(userName, password, authorities);
 		}
 		return user;
-	}
+	}*/
 	
-}
+//}

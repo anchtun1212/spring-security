@@ -3,7 +3,7 @@ package com.anchtun.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -71,10 +71,16 @@ public class ProjectSecurityConfig {
 	}*/
 	
 	// we need always to talk with spring how our password are stored
-	@Bean
+	/*@Bean
 	PasswordEncoder passwordEncoder() {
 		// deprecated: mean do not use in PROD
 		return NoOpPasswordEncoder.getInstance();
+	}*/
+	
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		// recommended hash algorith for PROD
+		return new BCryptPasswordEncoder();
 	}
 	
 }

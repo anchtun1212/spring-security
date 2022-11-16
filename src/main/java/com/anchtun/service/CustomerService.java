@@ -7,4 +7,6 @@ import com.anchtun.model.Customer;
 public interface CustomerService {
 
 	ResponseEntity<?> save(Customer customer);
+	
+	Customer findByUsername(String username);
 }
