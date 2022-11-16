@@ -28,10 +28,12 @@ The default credentials are:
 
 `password`: will be generated and you can see it in the `console` when you run the application.
 
-- If you don't know/forget some spring properties go to: 
+- If you don't know/forget some spring properties go to:
+
 https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
 
 and for spring security go to: 
+
 https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.security
 
 - You can use static username and password for POC purpose for example by adding those two lines in the `application.properties`
@@ -44,5 +46,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/application-prope
 
 
 - To create the same tables inside your application go to: 
+
 https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/appendix-schema.html 
+
 and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`.
