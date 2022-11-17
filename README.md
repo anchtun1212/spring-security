@@ -69,4 +69,12 @@ and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`
 
 # Links
 
+- Spring website to generate projects - https://start.spring.io/
+
+- Spring Website - https://spring.io/
+
+- Spring Projects website - https://spring.io/projects
+
+- Spring Boot properties - https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
+
 - Web site for hashing: https://bcrypt-generator.com/
