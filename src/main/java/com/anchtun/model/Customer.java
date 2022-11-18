@@ -44,4 +44,7 @@ public class Customer extends BaseEntity {
 	
 	@OneToMany(mappedBy = "customer")
 	List<Card> cards;
+	
+	@OneToMany(mappedBy = "customer")
+	List<Loan> loans;
 }
