@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.anchtun.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,7 @@ public class Customer extends BaseEntity {
 	
 	private String email;
 	
+	@JsonIgnore
 	private String password;
 	
 	@Enumerated(EnumType.STRING)
