@@ -8,5 +8,5 @@ import com.anchtun.model.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-	Account findByCustomerId(int customerId);
+	Account findByCustomerId(Long customerId);
 }

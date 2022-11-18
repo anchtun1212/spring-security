@@ -9,7 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.anchtun.enums.AccountType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode(callSuper=false)
+@Data
 @Entity
 public class Account extends BaseEntity {
 
@@ -22,6 +28,7 @@ public class Account extends BaseEntity {
 	@Column(name = "branch_address")
 	private String branchAddress;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;

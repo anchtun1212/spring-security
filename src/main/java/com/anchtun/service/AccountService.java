@@ -4,6 +4,6 @@ import com.anchtun.model.Account;
 
 public interface AccountService {
 
-	Account findByCustomerId(int customerId);
+	Account findByCustomerId(Long customerId);
 
 }
