@@ -1,7 +1,5 @@
 package com.anchtun.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,9 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.anchtun.enums.Role;
+import com.anchtun.enums.CardType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -20,28 +19,28 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 @Data
 @Entity
-public class Customer extends BaseEntity {
+public class Card extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String name;
-	
-	private String email;
+	private String number;
+
+	@Enumerated(EnumType.STRING)
+	private CardType type;
+
+	@Column(name = "total_limit")
+	private int totalLimit;
+
+	@Column(name = "amount_used")
+	private int amountUsed;
+
+	@Column(name = "available_amount")
+	private int availableAmount;
 	
 	@JsonIgnore
-	private String password;
-	
-	@Enumerated(EnumType.STRING)
-	private Role role;
-	
-	@Column(name = "mobile_number")
-	private String mobileNumber;
-	
-	@OneToMany(mappedBy = "customer")
-	List<Account> accounts;
-	
-	@OneToMany(mappedBy = "customer")
-	List<Card> cards;
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 }

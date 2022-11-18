@@ -20,7 +20,7 @@ import lombok.EqualsAndHashCode;
 public class Account extends BaseEntity {
 
 	@Id
-	private Long Number;
+	private Long number;
 	
 	@Enumerated(EnumType.STRING)
 	private AccountType Type;
