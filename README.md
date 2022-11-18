@@ -67,6 +67,10 @@ https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/appendix-s
 
 and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`.
 
+- In order to use this method: `uuid_generate_v4()` please run those two commands:
+
+`sudo -u postgres psql postgres` then `ALTER USER springuser WITH SUPERUSER;` then `liquibase` will run this `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";` in the `changeSet id="spring-security-15"`.
+
 # Links
 
 - Spring website to generate projects - https://start.spring.io/

@@ -9,5 +9,5 @@ import com.anchtun.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	// derived method name query
-	Customer findOneByUsername(String username);
+	Customer findOneByEmail(String email);
 }

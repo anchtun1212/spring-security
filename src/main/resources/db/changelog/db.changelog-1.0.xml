@@ -74,4 +74,216 @@
 			delete from customer;
 		</sql>
 	</changeSet>
+	<changeSet id="spring-security-9" author="anchtun1212">
+		<sql>
+			drop table customer;
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-10" author="anchtun1212">
+		<sql>
+			create table customer(
+			    id serial4 not null primary key,
+			    name varchar(50) not null,
+				email varchar(50) not null,
+				password varchar(100) not null,
+				role varchar(50) not null,
+			    mobile_number varchar(20) not null,
+			    create_date date default null
+			);
+		</sql>
+		<rollback>
+			drop table customer;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-11" author="anchtun1212">
+		<sql>
+		   <!-- password hashed = 12345 -->
+			insert into customer (name, email, mobile_number, password, role, create_date)
+            values ('anchtun','anchtun@gmail.com','0559999999', '$2a$12$F99p6g8QuTtpOsDfaS8Yfe5K8waGWCwYN4HDLMHzxfQADgKN3OhgW', 'ADMIN', now());
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-12" author="anchtun1212">
+		<sql>
+			create table account (
+			  customer_id int8 not null,
+			  number int8 not null primary key,
+			  type varchar(100) not null,
+			  branch_address varchar(200) not null,
+			  create_date date default null,
+			  constraint customer_ibfk_1 foreign key (customer_id) references customer (id) on delete cascade
+			);
+		</sql>
+		<rollback>
+			drop table account;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-13" author="anchtun1212">
+		<sql>
+			insert into account (customer_id, number, type, branch_address, create_date)
+            values (1, 123454387, 'SAVINGS', '123 Riyadh', now());
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-14" author="anchtun1212">
+		<sql>
+			create table account_transactions (
+			    transaction_id varchar(200) not null primary key,
+				account_number int8 not null,
+				customer_id int8 not null,
+				transaction_date date not null,
+				transaction_summary varchar(200) not null,
+				transaction_type varchar(100) not null,
+				transaction_amount int8 not null,
+				closing_balance int8 not null,
+				create_date date default null,
+				constraint accounts_ibfk_2 foreign key (account_number) references account (number) on delete cascade,
+				constraint acct_user_ibfk_1 foreign key (customer_id) references customer (id) on delete cascade
+			);
+		</sql>
+		<rollback>
+			drop table account_transactions;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-15" author="anchtun1212">
+		<sql>
+		    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '7 days', 'coffee shop', 'WITHDRAWAL', 30,34500, current_date - interval '7 days');
+			
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '6 days', 'uber', 'WITHDRAWAL', 100,34400, current_date - interval '6 days');
+			
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '5 days', 'SELF DEPOSIT', 'DEPOSIT', 500,34900, current_date - interval '5 days');
+			
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '4 days', 'ebay', 'WITHDRAWAL', 600,34300, current_date - interval '4 days');
+			
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '2 days', 'onlinetransfer', 'DEPOSIT', 700,35000, current_date - interval '2 days');
+			
+			insert into account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_summary, transaction_type, transaction_amount,
+			closing_balance, create_date)  values (uuid_generate_v4(), 123454387, 1, current_date - interval '1 day', 'amazon.com', 'WITHDRAWAL', 100,34900, current_date - interval '1 day');
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-16" author="anchtun1212">
+		<sql>
+			create table loan (
+			   number serial4 not null primary key,
+			   customer_id int8 not null,
+			   start_date date not null,
+			   type varchar(100) not null,
+			   total_loan int4 not null,
+			   amount_paid int4 not null,
+			   outstanding_amount int4 not null,
+			   create_date date default null,
+			   constraint loan_customer_ibfk_1 foreign key (customer_id) references customer (id) on delete cascade
+			);
+		</sql>
+		<rollback>
+			drop table loan;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-17" author="anchtun1212">
+		<sql>
+			insert into loan ( customer_id, start_date, type, total_loan, amount_paid, outstanding_amount, create_date)
+			values ( 1, '2020-10-13', 'HOME', 200000, 50000, 150000, '2020-10-13');
+			
+			insert into loan ( customer_id, start_date, type, total_loan, amount_paid, outstanding_amount, create_date)
+			values ( 1, '2020-06-06', 'VEHICLE', 40000, 10000, 30000, '2020-06-06');
+			
+			insert into loan ( customer_id, start_date, type, total_loan, amount_paid, outstanding_amount, create_date)
+			values ( 1, '2018-02-14', 'HOME', 50000, 10000, 40000, '2018-02-14');
+			
+			insert into loan ( customer_id, start_date, type, total_loan, amount_paid, outstanding_amount, create_date)
+			values ( 1, '2018-02-14', 'PERSONAL', 10000, 3500, 6500, '2018-02-14');
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-18" author="anchtun1212">
+		<sql>
+			create table card (
+			  id serial4 not null primary key,
+			  number varchar(100) not null,
+			  customer_id int8 not null,
+			  type varchar(100) not null,
+			  total_limit int4 not null,
+			  amount_used int4 not null,
+			  available_amount int4 not null,
+			  create_date date default null,
+			  constraint card_customer_ibfk_1 foreign key (customer_id) references customer (id) on delete cascade
+			);
+		</sql>
+		<rollback>
+			drop table card;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-19" author="anchtun1212">
+		<sql>
+			insert into card (number, customer_id, type, total_limit, amount_used, available_amount, create_date)
+			values ('4565xxxx4656', 1, 'CREDIT', 10000, 500, 9500, now());
+			
+			insert into card (number, customer_id, type, total_limit, amount_used, available_amount, create_date)
+			values ('3455xxxx8673', 1, 'CREDIT', 7500, 600, 6900, now());
+			
+			insert into card (number, customer_id, type, total_limit, amount_used, available_amount, create_date)
+			values ('2359xxxx9346', 1, 'CREDIT', 20000, 4000, 16000, now());
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-20" author="anchtun1212">
+		<sql>
+			create table notice_details (
+			  id serial4 not null primary key,
+			  summary varchar(200) NOT NULL,
+			  details varchar(500) NOT NULL,
+			  begin_date date NOT NULL,
+			  end_date date DEFAULT NULL,
+			  create_date date DEFAULT NULL,
+			  update_date date DEFAULT NULL
+			);
+		</sql>
+		<rollback>
+			drop table notice_details;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-21" author="anchtun1212">
+		<sql>
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('home loan interest rates reduced', 'home loan interest rates are reduced as per the goverment guidelines. the updated rates will be effective immediately',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+			
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('net banking offers', 'customers who will opt for internet banking while opening a saving account will get a $50 amazon voucher',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+			
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('mobile app downtime', 'the mobile application of the eazybank will be down from 2am-5am on 12/05/2020 due to maintenance activities',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+			
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('e auction notice', 'there will be a e-auction on 12/08/2020 on the bank website for all the stubborn arrears.interested parties can participate in the e-auction',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+			
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('launch of millennia cards', 'millennia credit cards are launched for the premium customers of eazybank. with these cards, you will get 5% cashback for each purchase',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+			
+			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
+			values ('covid-19 insurance', 'eazybank launched an insurance policy which will cover covid-19 expenses. please reach out to the branch for more details',
+			current_date - interval '30 days', current_date + interval '30 days', now(), null);
+		</sql>
+	</changeSet>
+	<changeSet id="spring-security-22" author="anchtun1212">
+		<sql>
+			create table contact_messages (
+			  id varchar(200) not null primary key,
+			  name varchar(50) NOT NULL,
+			  email varchar(100) NOT NULL,
+			  subject varchar(500) NOT NULL,
+			  message varchar(2000) NOT NULL,
+			  create_date date DEFAULT NULL
+			);
+		</sql>
+		<rollback>
+			drop table contact_messages;
+		</rollback>
+	</changeSet>
 </databaseChangeLog>

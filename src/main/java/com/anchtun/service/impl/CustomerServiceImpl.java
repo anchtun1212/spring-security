@@ -42,8 +42,8 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public Customer findByUsername(String username) {
-		return customerRepository.findOneByUsername(username);
+	public Customer findByEmail(String email) {
+		return customerRepository.findOneByEmail(email);
 	}
 
 }

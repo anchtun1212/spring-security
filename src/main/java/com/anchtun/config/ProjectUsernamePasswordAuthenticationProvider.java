@@ -34,7 +34,7 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
-		Customer customer = customerService.findByUsername(username);
+		Customer customer = customerService.findByEmail(username);
 		if (Objects.nonNull(customer)) {
 			if (passwordEncoder.matches(password, customer.getPassword())) {
 				List<GrantedAuthority> authorities = new ArrayList<>();

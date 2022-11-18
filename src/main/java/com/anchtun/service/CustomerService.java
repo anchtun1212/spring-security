@@ -8,5 +8,5 @@ public interface CustomerService {
 
 	ResponseEntity<?> save(Customer customer);
 	
-	Customer findByUsername(String username);
+	Customer findByEmail(String email);
 }
