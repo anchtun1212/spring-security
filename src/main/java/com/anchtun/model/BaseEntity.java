@@ -7,7 +7,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
@@ -27,8 +26,4 @@ public class BaseEntity {
 	//@JsonIgnore
 	private LocalDate createDate;
 	
-	@LastModifiedDate
-	@Column(insertable = false, name = "update_date")
-	private LocalDate updateDate;
-
 }

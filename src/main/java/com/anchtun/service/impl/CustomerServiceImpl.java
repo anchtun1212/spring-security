@@ -1,5 +1,7 @@
 package com.anchtun.service.impl;
 
+import java.time.LocalDate;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
 		ResponseEntity<?> response = null;
 		try {
 			customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+			customer.setCreateDate(LocalDate.now());
 			saved = customerRepository.save(customer);
 			if (saved.getId() > 0L) {
 				response = ResponseEntity

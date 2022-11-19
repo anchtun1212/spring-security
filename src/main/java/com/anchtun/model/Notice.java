@@ -29,4 +29,7 @@ public class Notice extends BaseEntity {
 	
 	@Column(name = "end_date")
 	private LocalDate endDate;
+	
+	@Column(name = "update_date")
+	private LocalDate updateDate;
 }

@@ -255,7 +255,7 @@
 			current_date - interval '30 days', current_date + interval '30 days', now(), null);
 			
 			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
-			values ('mobile app downtime', 'the mobile application of the eazybank will be down from 2am-5am on 12/05/2020 due to maintenance activities',
+			values ('mobile app downtime', 'the mobile application of the Anchtun Bank will be down from 2am-5am on 12/05/2020 due to maintenance activities',
 			current_date - interval '30 days', current_date + interval '30 days', now(), null);
 			
 			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
@@ -263,11 +263,11 @@
 			current_date - interval '30 days', current_date + interval '30 days', now(), null);
 			
 			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
-			values ('launch of millennia cards', 'millennia credit cards are launched for the premium customers of eazybank. with these cards, you will get 5% cashback for each purchase',
+			values ('launch of millennia cards', 'millennia credit cards are launched for the premium customers of Anchtun Bank. with these cards, you will get 5% cashback for each purchase',
 			current_date - interval '30 days', current_date + interval '30 days', now(), null);
 			
 			insert into notice_details (summary, details, begin_date, end_date, create_date, update_date)
-			values ('covid-19 insurance', 'eazybank launched an insurance policy which will cover covid-19 expenses. please reach out to the branch for more details',
+			values ('covid-19 insurance', 'Anchtun Bank launched an insurance policy which will cover covid-19 expenses. please reach out to the branch for more details',
 			current_date - interval '30 days', current_date + interval '30 days', now(), null);
 		</sql>
 	</changeSet>

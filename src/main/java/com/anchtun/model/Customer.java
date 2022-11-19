@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.anchtun.enums.Role;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,7 +30,9 @@ public class Customer extends BaseEntity {
 	
 	private String email;
 	
-	@JsonIgnore
+	//@JsonIgnore
+	// only on write we can get the password (POST: LoginController.registerUser)
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	
 	@Enumerated(EnumType.STRING)

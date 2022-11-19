@@ -1,11 +1,17 @@
 package com.anchtun.config;
 
+import java.util.Collections;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class ProjectSecurityConfig {
@@ -13,13 +19,26 @@ public class ProjectSecurityConfig {
 	// override and modifying the code as per our custom requirement
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+		http.securityContext().requireExplicitSave(false).and().cors()
+				.configurationSource(new CorsConfigurationSource() {
+					@Override
+					public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+						CorsConfiguration config = new CorsConfiguration();
+						config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+						config.setAllowedMethods(Collections.singletonList("*"));
+						config.setAllowCredentials(true);
+						config.setAllowedHeaders(Collections.singletonList("*"));
+						config.setMaxAge(3600L);// 1 hour
+						return config;
+					}
+				}).
 		//By default, spring security framework is going to stop all POST/PUT requests 
 		//that are going to update the data inside the database or inside the back end.
 		//So all such requests will be blocked by default just to make sure to avoid the CSRF attack.
 		//so we will disable CSRF
-		http.csrf().disable()
+		and().csrf().disable()
 		.authorizeHttpRequests()
-		.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards").authenticated()
+		.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
 		.antMatchers("/welcome", "/contact", "/notices", "/register").permitAll()
 		.and().formLogin()
 		.and().httpBasic();
