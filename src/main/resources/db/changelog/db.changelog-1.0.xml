@@ -307,4 +307,11 @@
 			INSERT INTO authorities (customer_id, name) VALUES (1, 'VIEWBALANCE');
 		</sql>
 	</changeSet>
+	<changeSet id="spring-security-25" author="anchtun1212">
+		<sql>
+			DELETE FROM authorities;
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'ROLE_USER');
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'ROLE_ADMIN');
+		</sql>
+	</changeSet>
 </databaseChangeLog>

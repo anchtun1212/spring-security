@@ -48,7 +48,12 @@ public class ProjectSecurityConfig {
 		.and().authorizeHttpRequests()
 		//.antMatchers("/myAccount").hasAnyAuthority("SUPERADMIN", "ADMINISTRATOR")// Authorities not exists so if you open developer console you will see 403 response error 
 		//.antMatchers("/myCards").hasAnyAuthority("SUPERUSER")// Authority not exists so if you open developer console you will see 403 response error
-		.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
+		//.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
+		.antMatchers("/myAccount").hasRole("USER")
+		.antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
+		.antMatchers("/myLoans").hasRole("USER")
+		.antMatchers("/myCards").hasRole("USER")
+		.antMatchers("/user").authenticated()
 		.antMatchers("/welcome", "/contact", "/notices", "/register").permitAll()
 		.and().formLogin()
 		.and().httpBasic();
