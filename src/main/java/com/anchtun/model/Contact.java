@@ -2,13 +2,15 @@ package com.anchtun.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-@Entity(name = "contact_messages")
+@Entity
+@Table(name = "contact_messages")
 public class Contact extends BaseEntity {
 	
 	@Id

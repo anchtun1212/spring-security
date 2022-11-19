@@ -3,6 +3,7 @@ package com.anchtun.config;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.anchtun.model.Authority;
 import com.anchtun.model.Customer;
 import com.anchtun.service.CustomerService;
 
@@ -37,9 +39,7 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
 		Customer customer = customerService.findByEmail(username);
 		if (Objects.nonNull(customer)) {
 			if (passwordEncoder.matches(password, customer.getPassword())) {
-				List<GrantedAuthority> authorities = new ArrayList<>();
-				authorities.add(new SimpleGrantedAuthority(customer.getRole().name()));
-				return new UsernamePasswordAuthenticationToken(username, password, authorities);
+				return new UsernamePasswordAuthenticationToken(username, password, getGrantedAuthorities(customer.getAuthorities()));
 			} else {
 				throw new BadCredentialsException("Wrong password");
 			}
@@ -47,6 +47,15 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
 			throw new BadCredentialsException("User details not exists");
 		}
 	}
+	
+	// Helper
+    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (Authority authority : authorities) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getName()));
+        }
+        return grantedAuthorities;
+    }
 
 	@Override
 	public boolean supports(Class<?> authentication) {

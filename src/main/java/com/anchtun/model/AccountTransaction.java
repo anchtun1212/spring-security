@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.anchtun.enums.TransactionType;
 
@@ -15,7 +16,8 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper=false)
 @Data
-@Entity(name = "account_transactions")
+@Entity
+@Table(name = "account_transactions")
 public class AccountTransaction extends BaseEntity {
 
 	@Id

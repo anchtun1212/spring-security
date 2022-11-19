@@ -286,4 +286,25 @@
 			drop table contact_messages;
 		</rollback>
 	</changeSet>
+	<changeSet id="spring-security-23" author="anchtun1212">
+		<sql>
+			create table authorities (
+			  id serial4 not null primary key,
+			  customer_id int not null,
+			  name varchar(50) not null,
+			  constraint authorities_ibfk_1 foreign key (customer_id) references customer (id)
+			);
+		</sql>
+		<rollback>
+			drop table authorities;
+		</rollback>
+	</changeSet>
+	<changeSet id="spring-security-24" author="anchtun1212">
+		<sql>
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'VIEWACCOUNT');
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'VIEWCARDS');
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'VIEWLOANS');
+			INSERT INTO authorities (customer_id, name) VALUES (1, 'VIEWBALANCE');
+		</sql>
+	</changeSet>
 </databaseChangeLog>
