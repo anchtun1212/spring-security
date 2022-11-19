@@ -11,7 +11,7 @@
             </div>
             <div class="cont-right">
               <h6>Call Us</h6>
-              <p><a href="tel:+456 68 925 89">+456 68 925 89</a></p>
+              <p><a href="tel:+00966541832634">+00966541832634</a></p>
             </div>
           </div>
           <div class="cont-top margin-up">
@@ -29,22 +29,22 @@
             </div>
             <div class="cont-right">
               <h6>Address</h6>
-              <p>123 Main Street, New York, NY 10030</p>
+              <p>Riyadh, KSA</p>
             </div>
           </div>
         </div>
         <div class="map-content-9">
-          <span class="text-success" *ngIf="model.contactId">Your message is submitted. Reference ID is {{model.contactId}}</span>
+          <span class="text-success" *ngIf="model.id">Your message is submitted. Reference ID is {{model.id}}</span>
           <form (ngSubmit)="contactForm.valid && saveMessage(contactForm)" #contactForm="ngForm">
             <div class="twice">
               <input type="text" class="form-control" name="contactName" id="contactName" placeholder="Name" required
-                [(ngModel)]="model.contactName" #contactName="ngModel">
+                [(ngModel)]="model.name" #contactName="ngModel">
               <span class="text-danger" *ngIf="(contactName.touched || contactForm.submitted) &&
               contactName.errors?.['required']">Error : Name is required !</span>
             </div>
             <div class="twice">
               <input type="email" class="form-control" name="contactEmail" id="contactEmail" placeholder="Email"
-                required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="model.contactEmail"
+                required pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" [(ngModel)]="model.email"
                 #contactEmail="ngModel">
               <span class="text-danger" *ngIf="(contactEmail.touched || contactForm.submitted) &&
                 contactEmail.errors?.['required']">Error : Email is required !</span>
