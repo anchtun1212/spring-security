@@ -40,6 +40,10 @@ public class ProjectSecurityConfig {
 		// not recommended in PROD just for POC purpose 
 		//and().csrf().disable()
 		.and().csrf().ignoringAntMatchers("/contact", "/register")// No need to protect csrf for those public links, anyone can register and send message
+		// So with this, what I'm telling to spring security framework: please generate an CSRF Token and
+		// send that token as a cookie to my client applications.
+		// So whenever we define withHttpOnly as false, my client applications also they can read the cookie
+        // using JavaScript code. Otherwise only my backend server can read the cookies but not the UI applications.
 		.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 		.and().authorizeHttpRequests()
 		.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()

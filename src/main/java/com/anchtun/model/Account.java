@@ -23,7 +23,7 @@ public class Account extends BaseEntity {
 	private Long number;
 	
 	@Enumerated(EnumType.STRING)
-	private AccountType Type;
+	private AccountType type;
 
 	@Column(name = "branch_address")
 	private String branchAddress;

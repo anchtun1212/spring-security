@@ -30,8 +30,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let card of cards">
-          <th>{{card.cardNumber}}</th>
-          <td>{{card.cardType}}</td>
+          <th>{{card.number}}</th>
+          <td>{{card.type}}</td>
           <td>{{card.totalLimit | currency}}</td>
           <td>{{card.amountUsed | currency}}</td>
           <td>{{card.availableAmount | currency}}</td>
