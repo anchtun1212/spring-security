@@ -10,14 +10,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+
+import com.anchtun.filter.RequestValidationBeforeFilter;
 
 @Configuration
 public class ProjectSecurityConfig {
 
 	// override and modifying the code as per our custom requirement
+	// our FilterChain order: CorsFilter(Order 1) --> CsfrFilter(Order 2)
+	// our custom Filter RequestValidationBeforeFilter (Order 3) --> BasicAuthenticationFilter(Order 4)
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http.securityContext().requireExplicitSave(false).and().cors()
@@ -45,7 +50,8 @@ public class ProjectSecurityConfig {
 		// So whenever we define withHttpOnly as false, my client applications also they can read the cookie
         // using JavaScript code. Otherwise only my backend server can read the cookies but not the UI applications.
 		.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-		.and().authorizeHttpRequests()
+		.and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+		.authorizeHttpRequests()
 		//.antMatchers("/myAccount").hasAnyAuthority("SUPERADMIN", "ADMINISTRATOR")// Authorities not exists so if you open developer console you will see 403 response error 
 		//.antMatchers("/myCards").hasAnyAuthority("SUPERUSER")// Authority not exists so if you open developer console you will see 403 response error
 		//.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
