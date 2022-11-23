@@ -82,3 +82,5 @@ and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`
 - Spring Boot properties - https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html
 
 - Web site for hashing: https://bcrypt-generator.com/
+
+- JWT: https://jwt.io/
