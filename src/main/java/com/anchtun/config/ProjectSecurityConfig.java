@@ -1,5 +1,6 @@
 package com.anchtun.config;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +19,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import com.anchtun.filter.AuthoritiesLoggingAfterFilter;
 import com.anchtun.filter.AuthoritiesLoggingAtFilter;
+import com.anchtun.filter.JWTTokenGeneratorFilter;
+import com.anchtun.filter.JWTTokenValidatorFilter;
 import com.anchtun.filter.RequestValidationBeforeFilter;
 
 @Configuration
@@ -27,7 +31,11 @@ public class ProjectSecurityConfig {
 	// our custom Filter RequestValidationBeforeFilter (Order 3) --> BasicAuthenticationFilter(Order 4)
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-		http.securityContext().requireExplicitSave(false).and().cors()
+		http
+		// JWT the default behavior of spring security is to generate JSESSIONID so we will not allow spring security to generate JSESSIONID 
+		// and instead we will generate our JWT token
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+		.securityContext().requireExplicitSave(false).and().cors()
 				.configurationSource(new CorsConfigurationSource() {
 					@Override
 					public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
@@ -36,6 +44,10 @@ public class ProjectSecurityConfig {
 						config.setAllowedMethods(Collections.singletonList("*"));
 						config.setAllowCredentials(true);
 						config.setAllowedHeaders(Collections.singletonList("*"));
+						// JWT: Please allow to send this header information as part of the response that I'm going to send
+						// from the backend application to the client application. Then only my browser is going to accept that new header
+						// which I'm going to send in as part of the response.
+					    config.setExposedHeaders(Arrays.asList("Authorization"));
 						config.setMaxAge(3600L);// 1 hour
 						return config;
 					}
@@ -55,6 +67,8 @@ public class ProjectSecurityConfig {
 		.and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
 		.addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
 		.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+		.addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+		.addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
 		.authorizeHttpRequests()
 		//.antMatchers("/myAccount").hasAnyAuthority("SUPERADMIN", "ADMINISTRATOR")// Authorities not exists so if you open developer console you will see 403 response error 
 		//.antMatchers("/myCards").hasAnyAuthority("SUPERUSER")// Authority not exists so if you open developer console you will see 403 response error

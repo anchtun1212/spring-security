@@ -15,6 +15,7 @@
 	<description>Spring Security, SpringBoot Security, CORs, CSRF, JWT, OAUTH2, OpenID Connect, KeyCloak</description>
 	<properties>
 		<java.version>17</java.version>
+		<jwt.version>0.11.5</jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -63,6 +64,25 @@
 		    <artifactId>jakarta.servlet-api</artifactId>
 		    <version>6.0.0</version>
 		    <scope>provided</scope>
+		</dependency>
+		<!-- JWT -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${jwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<!--  or jjwt-gson if Gson is preferred  -->
+			<version>${jwt.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>
