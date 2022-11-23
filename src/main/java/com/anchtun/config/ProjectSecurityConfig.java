@@ -15,6 +15,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.anchtun.filter.AuthoritiesLoggingAfterFilter;
+import com.anchtun.filter.AuthoritiesLoggingAtFilter;
 import com.anchtun.filter.RequestValidationBeforeFilter;
 
 @Configuration
@@ -51,6 +53,8 @@ public class ProjectSecurityConfig {
         // using JavaScript code. Otherwise only my backend server can read the cookies but not the UI applications.
 		.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 		.and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+		.addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+		.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
 		.authorizeHttpRequests()
 		//.antMatchers("/myAccount").hasAnyAuthority("SUPERADMIN", "ADMINISTRATOR")// Authorities not exists so if you open developer console you will see 403 response error 
 		//.antMatchers("/myCards").hasAnyAuthority("SUPERUSER")// Authority not exists so if you open developer console you will see 403 response error
