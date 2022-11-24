@@ -1,5 +1,15 @@
 package com.anchtun.filter;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+
+import javax.crypto.SecretKey;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,17 +22,9 @@ import com.anchtun.constants.SecurityConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
-import javax.crypto.SecretKey;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Objects;
-
+@Slf4j
 public class JWTTokenValidatorFilter extends OncePerRequestFilter {
 
     @Override
@@ -45,6 +47,7 @@ public class JWTTokenValidatorFilter extends OncePerRequestFilter {
                 // set in SecurityContextHolder
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } catch (Exception e) {
+            	log.error("Error was occured: " + e.getMessage());
                 throw new BadCredentialsException("Invalid Token received!");
             }
 
