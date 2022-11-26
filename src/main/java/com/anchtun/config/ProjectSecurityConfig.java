@@ -75,7 +75,7 @@ public class ProjectSecurityConfig {
 		//.antMatchers("/myAccount", "/myBalance", "/myLoans", "/myCards", "/user").authenticated()
 		.antMatchers("/myAccount").hasRole("USER")
 		.antMatchers("/myBalance").hasAnyRole("USER", "ADMIN")
-		.antMatchers("/myLoans").hasRole("USER")
+		.antMatchers("/myLoans").authenticated()
 		.antMatchers("/myCards").hasRole("USER")
 		.antMatchers("/user").authenticated()
 		.antMatchers("/welcome", "/contact", "/notices", "/register").permitAll()
