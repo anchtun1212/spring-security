@@ -32,7 +32,7 @@ public class ProjectSecurityConfig {
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http
-		// JWT the default behavior of spring security is to generate JSESSIONID so we will not allow spring security to generate JSESSIONID 
+		// JWT: the default behavior of spring security is to generate JSESSIONID so we will not allow spring security to generate JSESSIONID 
 		// and instead we will generate our JWT token
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.securityContext().requireExplicitSave(false).and().cors()

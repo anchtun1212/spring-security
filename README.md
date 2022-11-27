@@ -84,3 +84,7 @@ and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`
 - Web site for hashing: https://bcrypt-generator.com/
 
 - JWT: https://jwt.io/
+
+- OAuth2 Website - https://oauth.net/2/
+
+- OAuth2 playground - https://www.oauth.com/playground/
