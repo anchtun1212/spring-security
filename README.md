@@ -17,6 +17,10 @@ postgres=# grant all privileges on database springdb to springuser;
 - By default, spring security framework is going to stop all POST/PUT requests that are going to update the data inside the database or inside the back end.
 So all such requests will be blocked by default just to make sure to avoid the CSRF attack.
 
+# Registering the client details with the GitHub to use it's OAUTH2 Auth server
+
+ - Go to: https://github.com/anchtun1212/springsecurityOAUTH2
+
 # Angular
 
 - `bank-app-ui` is an angular application. 
