@@ -38,6 +38,18 @@ system and check if the installation is successful using the command `node -v` w
 
 5) Run the command ‘ng serve’ and it will start the application at http://localhost:4200/ by default.
 
+# Download and Install Keycloak
+
+- Go to: https://www.keycloak.org/downloads then download Keycloak.
+
+- Go to: https://www.keycloak.org/guides and in `Getting started` choose the appropriate option then follow the instructions to install keycloak.
+
+- In my case I am using Linux and I want to install Keycloak locally so I choose: `OpenJDK`.
+
+- By default keycloak use the port `8080` so to change the default port you can run this command: `bin/kc.sh start-dev --http-port 8094`.
+ 
+- Open this URL: http://localhost:8094 and enter your username and password then go to: `Administration Console` and login using your credentials.
+
 # Tips
 
 - Please note that when you add `spring-boot-starter-security` in the `pom.xml`, spring will secure your application.
