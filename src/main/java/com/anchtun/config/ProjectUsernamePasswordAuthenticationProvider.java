@@ -1,28 +1,8 @@
 package com.anchtun.config;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import com.anchtun.model.Authority;
-import com.anchtun.model.Customer;
-import com.anchtun.service.CustomerService;
-
-import lombok.AllArgsConstructor;
-
+// comment because we are giving the responsibility of authentication to the Keycloak server.
 // our custom authentication logic
-@AllArgsConstructor
+/*@AllArgsConstructor
 @Component
 public class ProjectUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
 	
@@ -64,4 +44,4 @@ public class ProjectUsernamePasswordAuthenticationProvider implements Authentica
 		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
 	}
 
-}
+}*/

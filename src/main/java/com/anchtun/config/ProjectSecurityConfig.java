@@ -9,19 +9,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
-import com.anchtun.filter.AuthoritiesLoggingAfterFilter;
-import com.anchtun.filter.AuthoritiesLoggingAtFilter;
-import com.anchtun.filter.JWTTokenGeneratorFilter;
-import com.anchtun.filter.JWTTokenValidatorFilter;
-import com.anchtun.filter.RequestValidationBeforeFilter;
 
 @Configuration
 public class ProjectSecurityConfig {
@@ -31,6 +23,10 @@ public class ProjectSecurityConfig {
 	// our custom Filter RequestValidationBeforeFilter (Order 3) --> BasicAuthenticationFilter(Order 4)
 	@Bean
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+		
+		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(new KeycloakRoleConverter());
+        
 		http
 		// JWT: the default behavior of spring security is to generate JSESSIONID so we will not allow spring security to generate JSESSIONID 
 		// and instead we will generate our JWT token
@@ -64,11 +60,13 @@ public class ProjectSecurityConfig {
 		// So whenever we define withHttpOnly as false, my client applications also they can read the cookie
         // using JavaScript code. Otherwise only my backend server can read the cookies but not the UI applications.
 		.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-		.and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
-		.addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
-		.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
-		.addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-		.addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
+		.and()
+		// comment filters because we are using keycloak that will generate our tokens 
+		//.addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+		//.addFilterAt(new AuthoritiesLoggingAtFilter(), BasicAuthenticationFilter.class)
+		//.addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+		//.addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+		//.addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
 		.authorizeHttpRequests()
 		//.antMatchers("/myAccount").hasAnyAuthority("SUPERADMIN", "ADMINISTRATOR")// Authorities not exists so if you open developer console you will see 403 response error 
 		//.antMatchers("/myCards").hasAnyAuthority("SUPERUSER")// Authority not exists so if you open developer console you will see 403 response error
@@ -79,8 +77,16 @@ public class ProjectSecurityConfig {
 		.antMatchers("/myCards").hasRole("USER")
 		.antMatchers("/user").authenticated()
 		.antMatchers("/welcome", "/contact", "/notices", "/register").permitAll()
-		.and().formLogin()
-		.and().httpBasic();
+		// comment because we are giving the responsibility of authentication to the Keycloak server.
+		//.and().formLogin()
+		//.and().httpBasic();
+		// I we are telling to my Spring security framework that this Spring Boot web application
+        // is going to act as an resource server and it is going to receive the access tokens in the form of JWT tokens.
+        // And in order to understand the roles information from the JWT token, we are passing the JWTAuthenticationConverter object
+        // which we have created in the top. And for this method, we have passed the KeycloakRoleConverter.
+        // This way, we have provided all the details to the Spring security framework that this application is going to act as a resource server
+        // and all the role conversion logic we have written inside this JWT Authentication Converter.
+		.and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter);
 		return http.build();
 	}
 	
@@ -135,10 +141,11 @@ public class ProjectSecurityConfig {
 		return NoOpPasswordEncoder.getInstance();
 	}*/
 	
-	@Bean
-	PasswordEncoder passwordEncoder() {
+	// comment because we are giving the responsibility of authentication to the Keycloak server.
+	//@Bean
+	//PasswordEncoder passwordEncoder() {
 		// recommended hash algorith for PROD
-		return new BCryptPasswordEncoder();
-	}
+		//return new BCryptPasswordEncoder();
+	//}
 	
 }

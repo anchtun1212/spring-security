@@ -87,6 +87,8 @@ and copy/paste User Schema scripts, but change `varchar_ignorecase` to `varchar`
 
 `sudo -u postgres psql postgres` then `ALTER USER springuser WITH SUPERUSER;` then `liquibase` will run this `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";` in the `changeSet id="spring-security-15"`.
 
+- You can see this URL in order to understand all the important URLs exposed by your `keycloak server`: http://8094/realms/spring-security-dev/.well-known/openid-configuration
+
 # Links
 
 - Spring website to generate projects - https://start.spring.io/
