@@ -8,4 +8,6 @@ public interface CardService {
 
 	List<Card> findByCustomerId(Long customerId);
 
+	List<Card> findByCustomerEmail(String email);
+
 }

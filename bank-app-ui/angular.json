@@ -13,6 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "base64-js",
+              "js-sha256"
+           ],
             "outputPath": "dist/bank-app-ui",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -101,6 +105,6 @@
     }
   },
   "cli": {
-    "analytics": "fea5657e-80d2-4669-8563-7cb25292c940"
+    "analytics": false
   }
 }

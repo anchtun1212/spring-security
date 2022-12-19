@@ -19,4 +19,9 @@ public class AccountServiceImpl implements AccountService {
 		return accountRepository.findByCustomerId(customerId);
 	}
 
+	@Override
+	public Account findByCustomerEmail(String email) {
+		return accountRepository.findByCustomerEmail(email);
+	}
+
 }

@@ -8,4 +8,6 @@ public interface AccountTransactionService {
 
 	List<AccountTransaction> findByCustomerIdOrderByTransactionDateDesc(Long customerId);
 
+	List<AccountTransaction> findByCustomerEmailOrderByTransactionDateDesc(String email);
+
 }

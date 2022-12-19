@@ -1,12 +1,11 @@
 package com.anchtun.service;
 
-import org.springframework.http.ResponseEntity;
-
 import com.anchtun.model.Customer;
 
 public interface CustomerService {
 
-	ResponseEntity<?> save(Customer customer);
+	// comment because we are giving the responsibility of authentication to the Keycloak server.
+	// ResponseEntity<?> save(Customer customer);
 	
 	Customer findByEmail(String email);
 }

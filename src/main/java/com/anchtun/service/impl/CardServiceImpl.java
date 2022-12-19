@@ -21,4 +21,9 @@ public class CardServiceImpl implements CardService {
 		return cardRepository.findByCustomerId(customerId);
 	}
 
+	@Override
+	public List<Card> findByCustomerEmail(String email) {
+		return cardRepository.findByCustomerEmail(email);
+	}
+
 }

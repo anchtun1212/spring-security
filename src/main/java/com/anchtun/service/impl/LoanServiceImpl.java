@@ -21,4 +21,9 @@ public class LoanServiceImpl implements LoanService {
 		return loanRepository.findByCustomerIdOrderByStartDateDesc(customerId);
 	}
 
+	@Override
+	public List<Loan> findByCustomerEmailOrderByStartDtDesc(String email) {
+		return loanRepository.findByCustomerEmailOrderByStartDateDesc(email);
+	}
+
 }

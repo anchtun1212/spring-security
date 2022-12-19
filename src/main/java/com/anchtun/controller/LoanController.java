@@ -22,7 +22,7 @@ public class LoanController {
 	// @PostAuthorize("hasRole('USER')")
 	@PreAuthorize("hasRole('USER')")
 	@GetMapping("/myLoans")
-	public List<Loan> getLoanDetails(@RequestParam Long customerId) {
-		return loanService.findByCustomerIdOrderByStartDtDesc(customerId);
+	public List<Loan> getLoanDetails(@RequestParam String email) {
+		return loanService.findByCustomerEmailOrderByStartDtDesc(email);
 	}
 }

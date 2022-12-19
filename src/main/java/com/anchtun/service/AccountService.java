@@ -6,4 +6,6 @@ public interface AccountService {
 
 	Account findByCustomerId(Long customerId);
 
+	Account findByCustomerEmail(String email);
+
 }

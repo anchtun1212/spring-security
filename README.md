@@ -50,6 +50,8 @@ system and check if the installation is successful using the command `node -v` w
  
 - Open this URL: http://localhost:8094 and enter your username and password then go to: `Administration Console` and login using your credentials.
 
+- First install: `npm install keycloak-angular@12.1.0 keycloak-js@19.0.1`
+
 # Tips
 
 - Please note that when you add `spring-boot-starter-security` in the `pom.xml`, spring will secure your application.

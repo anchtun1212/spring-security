@@ -80,7 +80,7 @@ public class ProjectSecurityConfig {
 		// comment because we are giving the responsibility of authentication to the Keycloak server.
 		//.and().formLogin()
 		//.and().httpBasic();
-		// I we are telling to my Spring security framework that this Spring Boot web application
+		// We are telling to my Spring security framework that this Spring Boot web application
         // is going to act as an resource server and it is going to receive the access tokens in the form of JWT tokens.
         // And in order to understand the roles information from the JWT token, we are passing the JWTAuthenticationConverter object
         // which we have created in the top. And for this method, we have passed the KeycloakRoleConverter.

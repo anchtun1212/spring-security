@@ -8,4 +8,6 @@ public interface LoanService {
 
 	List<Loan> findByCustomerIdOrderByStartDtDesc(Long customerId);
 
+	List<Loan> findByCustomerEmailOrderByStartDtDesc(String email);
+
 }

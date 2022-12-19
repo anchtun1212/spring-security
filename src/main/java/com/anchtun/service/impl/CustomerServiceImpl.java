@@ -1,10 +1,5 @@
 package com.anchtun.service.impl;
 
-import java.time.LocalDate;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.anchtun.model.Customer;
@@ -19,10 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	
-	private final PasswordEncoder passwordEncoder;
+	// comment because we are giving the responsibility of authentication to the Keycloak server.
+	//private final PasswordEncoder passwordEncoder;
 	private final CustomerRepository customerRepository;
 
-	@Override
+	// comment because we are giving the responsibility of authentication to the Keycloak server.
+	/*@Override
 	public ResponseEntity<?> save(Customer customer) {
 		Customer saved = null;
 		ResponseEntity<?> response = null;
@@ -42,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 					.body("Exception occured due to: " + e.getMessage());
 		}
 		return response;
-	}
+	}*/
 
 	@Override
 	public Customer findByEmail(String email) {

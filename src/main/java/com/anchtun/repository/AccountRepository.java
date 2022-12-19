@@ -9,4 +9,6 @@ import com.anchtun.model.Account;
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	Account findByCustomerId(Long customerId);
+	
+	Account findByCustomerEmail(String email);
 }

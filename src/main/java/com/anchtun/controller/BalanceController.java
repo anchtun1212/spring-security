@@ -18,7 +18,7 @@ public class BalanceController {
 	private final AccountTransactionService accountTransactionService;
 	
 	@GetMapping("/myBalance")
-	public List<AccountTransaction> getBalanceDetails(@RequestParam Long customerId) {
-		return accountTransactionService.findByCustomerIdOrderByTransactionDateDesc(customerId);
+	public List<AccountTransaction> getBalanceDetails(@RequestParam String email) {
+		return accountTransactionService.findByCustomerEmailOrderByTransactionDateDesc(email);
 	}
 }

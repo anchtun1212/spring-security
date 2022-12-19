@@ -11,4 +11,6 @@ import com.anchtun.model.Card;
 public interface CardRepository extends JpaRepository<Card, Long> {
 
 	List<Card> findByCustomerId(Long customerId);
+
+	List<Card> findByCustomerEmail(String email);
 }

@@ -12,4 +12,6 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
 
 	List<Loan> findByCustomerIdOrderByStartDateDesc(Long customerId);
 
+	List<Loan> findByCustomerEmailOrderByStartDateDesc(String email);
+
 }
